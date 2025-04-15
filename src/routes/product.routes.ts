@@ -1,7 +1,7 @@
 import express, { type Request, type Response } from 'express'
 import tryCatch from '../utils/tryCatch';
 import BaseBodyValidator from '../validators/BaseBodyValidator';
-import { createProduct, readProductById, updateProduct } from '../controllers/product.controller';
+import { createProduct, deleteProductById, readProductById, updateProduct } from '../controllers/product.controller';
 import { userAuthHandler } from '../middlewares/userAuthHandler';
 import { upload, multerErrorHandler, uploadImage } from '../utils/upload';
 import UpdateBodyValidator from '../validators/UpdateBodyValidator';
@@ -42,4 +42,10 @@ router.post('/read/:id',
   res.status(read.statusCode).send(read);
 }));
 
+router.delete('/delete/:id',
+  BaseParamValidator(['id']),
+  tryCatch(async (req: Request, res: Response) => {
+  const destroy = await deleteProductById(req.params.id)
+  res.status(destroy.statusCode).send(destroy);
+}));
 export default router;

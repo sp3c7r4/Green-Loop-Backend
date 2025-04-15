@@ -37,3 +37,12 @@ export const readProductById = async (productId: string) => {
   const readProduct = await productRepositoryInstance.readOneById(productId);
   return new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, "success", readProduct)
 }
+
+export const deleteProductById = async (productId: string) => {
+  if(!productId) {
+    return BAD_REQUEST("Product Id doesn't exist")
+  }
+
+  const deleteProduct = await productRepositoryInstance.deleteModel(productId);
+  return new Response(HttpStatus.OK.code, HttpStatus.OK.status, "success", deleteProduct)
+}
