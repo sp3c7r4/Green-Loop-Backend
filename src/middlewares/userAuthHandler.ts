@@ -4,7 +4,7 @@ import JWT from "../utils/jwtClass";
 import jwtExtractor from "../utils/jwtExtractor";
 import Response from "../utils/response";
 
-const userAuthHandler = (req: Request, res: Rez, next: NextFunction) => {
+export function userAuthHandler(req: Request, res: Rez, next: NextFunction) {
 
   const token = jwtExtractor(req)
 
@@ -23,5 +23,3 @@ const userAuthHandler = (req: Request, res: Rez, next: NextFunction) => {
   req.id = verifiedToken?.user.id;
   next();
 };
-
-export default userAuthHandler;

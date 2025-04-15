@@ -16,7 +16,10 @@ const env = {
   AMAZON_ACCESS_KEY: process.env.AMAZON_ACCESS_KEY as string,
   REDIS_HOST: process.env.REDIS_HOST as string,
   REDIS_PORT: Number(process.env.REDIS_PORT),
-  REDIS_TIME: Number(process.env.REDIS_TIME)
+  REDIS_TIME: Number(process.env.REDIS_TIME),
+  CLOUD_NAME: process.env.CLOUD_NAME as string,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
 }
 
 export default env;
