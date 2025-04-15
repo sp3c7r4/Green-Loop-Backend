@@ -121,7 +121,7 @@ export default class BaseRepositorySQL {
           id: id,
         },
       });
-      return 'Delete success';
+      return 'Success';
     } catch (err) {
       logTracker.log(
         'error',

@@ -1,25 +1,20 @@
 import path from 'path';
 import multer from 'multer';
-import { fileURLToPath } from 'url';
 import { v2 as cloudinary } from 'cloudinary';
-import { dirname } from 'path';
 import CustomError from './error';
 import HttpStatus from './http';
 import type { NextFunction, Request, Response } from 'express';
 import env from '../config/env';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 cloudinary.config({
   cloud_name: env.CLOUD_NAME,
   api_key: env.CLOUDINARY_API_KEY,
   api_secret: env.CLOUDINARY_API_SECRET,
 });
-// Configure multer
+
 export const upload = multer({
-  dest: path.join(__dirname, '../../uploads'), // Temporary upload directory
-  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
+  dest: path.join(process.cwd(), '../../uploads'),
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req: Request, file, cb) => {
     if(file) {
       if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
@@ -53,7 +48,6 @@ export function multerErrorHandler(err: object, req: Request, res: Response, nex
   next(err);
 }
 export async function uploadImage(req: Request, res: Response, next: NextFunction) {
-  console.log(req.file, req.body)
     try {
       console.log("req.file?.path", req.file?.path)
         const file = req.file?.path; // Assuming multer adds the file to req

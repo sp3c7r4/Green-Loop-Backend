@@ -2,42 +2,27 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../config/database";
 import { ulid } from "ulid";
 
-class Product extends Model { }
+class Auction extends Model { }
 
-Product.init({
+Auction.init({
   id: {
     type: DataTypes.STRING,
     primaryKey: true,
     defaultValue: () => ulid(),
     allowNull: false,
   },
-  name: {
+  price: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  image_url: {
+  productId: {
     type: DataTypes.STRING,
-    allowNull: false
-  },
-  about: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
-  brand: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  issue: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
-  condition: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  address: {
-    type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: "products",
+      key: "id",
+    },
+    onDelete: "CASCADE",
   },
   userId: {
     type: DataTypes.STRING,
@@ -50,9 +35,9 @@ Product.init({
   }
 }, {
   sequelize,
-  modelName: "product",
+  modelName: "address",
   timestamps: true,
 });
 
-await Product.sync({});
-export default Product;
+await Auction.sync({});
+export default Auction;

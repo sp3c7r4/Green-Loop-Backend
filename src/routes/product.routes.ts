@@ -1,7 +1,7 @@
 import express, { type Request, type Response } from 'express'
 import tryCatch from '../utils/tryCatch';
 import BaseBodyValidator from '../validators/BaseBodyValidator';
-import { createProduct, deleteProductById, readProductById, updateProduct } from '../controllers/product.controller';
+import { createProduct, deleteProductById, readAllProducts, readAllProductsById, readProductById, updateProduct } from '../controllers/product.controller';
 import { userAuthHandler } from '../middlewares/userAuthHandler';
 import { upload, multerErrorHandler, uploadImage } from '../utils/upload';
 import UpdateBodyValidator from '../validators/UpdateBodyValidator';
@@ -10,7 +10,6 @@ import BaseParamValidator from '../validators/BaseParamValidator';
 const router = express.Router()
 
 const productFields = ['name','image_url', 'about', 'brand', 'issue', 'address'];
-const productUpdateFields = ['name','image_url', 'about', 'brand', 'issue', 'address'];
 
 router.post('/create',
   userAuthHandler,
@@ -19,7 +18,6 @@ router.post('/create',
   uploadImage,
   BaseBodyValidator(productFields),
   tryCatch(async (req: Request, res: Response) => {
-    console.log(req)
     const register = await createProduct({...req.body, userId: req.id})
     res.status(register.statusCode).send(register);
 }));
@@ -29,13 +27,26 @@ router.post('/update',
   upload.single('image'),
   multerErrorHandler,
   uploadImage,
-  UpdateBodyValidator(productUpdateFields),
+  UpdateBodyValidator(productFields),
   tryCatch(async (req: Request, res: Response) => {
     const register = await updateProduct({...req.body, userId: req.id})
     res.status(register.statusCode).send(register);
 }));
 
-router.post('/read/:id',
+router.get('/read/all',
+  userAuthHandler,
+  tryCatch(async (req: Request, res: Response) => {
+  const read = await readAllProductsById(req.id)
+  res.status(read.statusCode).send(read);
+}));
+
+router.get('/read/all-products',
+  tryCatch(async (req: Request, res: Response) => {
+  const read = await readAllProducts()
+  res.status(read.statusCode).send(read);
+}));
+
+router.get('/read/:id',
   BaseParamValidator(['id']),
   tryCatch(async (req: Request, res: Response) => {
   const read = await readProductById(req.params.id)
