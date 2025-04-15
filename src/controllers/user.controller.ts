@@ -3,11 +3,13 @@ import HttpStatus from "../utils/http"
 import Response, { BAD_REQUEST } from "../utils/response"
 import _ from 'lodash'
 import { userEmailCheck, userMobileCheck } from "../utils/user.util"
-import type { CreateUserDTO } from "../types/user"
+import type { CreateUserDTO, User } from "../types/user"
 import AddressRepository from "../repositories/address.repository"
 import userResource from "../resources/user.resource"
 import addressResource from "../resources/address.resource"
 import bcrypt from "bcryptjs"
+import JWT from "../utils/jwtClass"
+import type { Address } from "../types/address"
 
 const userRepositoryInstance = new UserRepository()
 const addressRepositoryInstance =  new AddressRepository()
@@ -30,10 +32,16 @@ export const registerUser = async (data: CreateUserDTO) => {
   const registerInfo = _.pick(data, registerData)
   const addressInfo = _.pick(data, addressData) as Record<string, string>;
   
-  const register = await userRepositoryInstance.create(registerInfo) as { id: string };
+  const register: User = await userRepositoryInstance.create(registerInfo);
   addressInfo['userId'] = register.id;
-  const address = await addressRepositoryInstance.create(addressInfo)
-  const response = { ...userResource(register), ...addressResource(address) }
+  const address: Partial<Address> = await addressRepositoryInstance.create(addressInfo)
+
+  const tokenData = {
+    user: userResource(register),
+    user_type: 'user'
+  }
+  const token = await JWT.signToken(tokenData)
+  const response = { ...userResource(register), ...addressResource(address), token  }
   return new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, "success", response)
 }
 
@@ -46,5 +54,14 @@ export const loginUser = async (email: string, password: string) =>  {
   if(!decryptPassword) {
     return BAD_REQUEST("Incorrect Password")
   }
-  return new Response(HttpStatus.OK.code, HttpStatus.OK.status, "success", userResource(emailCheck))
+  const tokenData = {
+    user: userResource(emailCheck),
+    user_type: 'user'
+  }
+  const token = await JWT.signToken(tokenData)
+  const response = {
+    user: userResource(emailCheck),
+    token
+  }
+  return new Response(HttpStatus.OK.code, HttpStatus.OK.status, "success", response)
 }

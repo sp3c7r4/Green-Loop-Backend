@@ -25,6 +25,8 @@ export interface UserResponseDTO {
   id: string; 
   firstname: string;
   lastname: string;
+  mobile: string;
+  type: string;
   email: string;
   createdAt: Date; 
   updatedAt: Date; 
