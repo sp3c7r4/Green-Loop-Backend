@@ -1,6 +1,6 @@
 import _ from "lodash";
 import HttpStatus from "../utils/http";
-import Response from "../utils/response";
+import Response, { BAD_REQUEST } from "../utils/response";
 import type { CreateProductDTO } from "../types/product";
 import ProductRepository from "../repositories/product.repository";
 
@@ -27,4 +27,13 @@ export const updateProduct = async (data: CreateProductDTO) => {
   const updateProduct = await productRepositoryInstance.updateModel(data.updateId, filteredData);
   console.log(updateProduct)
   return new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, "success", updateProduct)
+}
+
+export const readProductById = async (productId: string) => {
+  if(!productId) {
+    BAD_REQUEST("Product Id doesn't exist")
+  }
+
+  const readProduct = await productRepositoryInstance.readOneById(productId);
+  return new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, "success", readProduct)
 }

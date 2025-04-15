@@ -18,9 +18,7 @@ router.post('/register',
 router.post('/login',
   BaseBodyValidator(loginFields),
   tryCatch(async (req: Request, res: Response) => {
-  const register = await loginUser(req.body.email, req.body.password)
-  res.status(register.statusCode).send(register);
+  const login = await loginUser(req.body.email, req.body.password)
+  res.status(login.statusCode).send(login);
 }));
-
-
 export default router;
