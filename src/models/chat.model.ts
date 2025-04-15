@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
 import { getFormattedDate } from "../utils/utility";
-import Logger from "../utils/logger";
 
 export const chatSchema = new Schema(
   {

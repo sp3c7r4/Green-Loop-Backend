@@ -1,14 +1,26 @@
 import express, { type Request, type Response } from 'express'
-import { registerUser } from '../controllers/user.controller';
+import { loginUser, registerUser } from '../controllers/user.controller';
 import tryCatch from '../utils/tryCatch';
+import BaseBodyValidator from '../validators/BaseBodyValidator';
 
 const router = express.Router()
 
-router.post('/register', 
-  tryCatch(async (req, res) => {
+const registerFields = ['firstname','lastname','email','mobile','type', 'password', 'address', 'state', 'lga'];
+const loginFields = [ 'email','password' ];
+
+router.post('/register',
+  BaseBodyValidator(registerFields),
+  tryCatch(async (req: Request, res: Response) => {
   const register = await registerUser(req.body)
   res.status(register.statusCode).send(register);
-}))
+}));
+
+router.post('/login',
+  BaseBodyValidator(loginFields),
+  tryCatch(async (req: Request, res: Response) => {
+  const register = await loginUser(req.body.email, req.body.password)
+  res.status(register.statusCode).send(register);
+}));
 
 
 export default router;

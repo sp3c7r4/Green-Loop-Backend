@@ -1,3 +1,5 @@
+import HttpStatus from "./http";
+
 class Response {
   timeStamp: string;
   statusCode: number;
@@ -13,5 +15,14 @@ class Response {
     this.data = data;
   }
 }
+
+export function BAD_REQUEST(message: string) {
+  return new Response(
+    HttpStatus.BAD_REQUEST.code,
+    HttpStatus.BAD_REQUEST.status,
+    message,
+    {}
+  )
+} 
 
 export default Response;

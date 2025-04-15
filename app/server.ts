@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import Logger from '../src/utils/logger';
 import { address } from 'ip';
 import env from '../src/config/env';
@@ -17,6 +17,10 @@ connectSQL(); /* Connect to PostGreSQL */
 
 /* User Routes */
 app.use('/api/v1/user/', userRoutes);
+
+app.get('/', (_req: Request, res: Response) => {
+  res.status(200).send('Server working perfectly...');
+});
 
 /** Handles Error */
 app.use(errorHandler);

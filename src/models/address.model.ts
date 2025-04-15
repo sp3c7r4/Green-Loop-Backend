@@ -2,49 +2,45 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../config/database";
 import { ulid } from "ulid";
 
-class User extends Model { }
+class Address extends Model { }
 
-User.init({
+Address.init({
   id: {
     type: DataTypes.STRING,
     primaryKey: true,
     defaultValue: () => ulid(),
     allowNull: false,
   },
-  firstname: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  lastname: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    unique: true,
-    allowNull: false,
-    validate: {
-      isEmail: true,
-    }
-  },
-  mobile: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
-  type: {
+  address: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  password: {
+  state: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false
+  },
+  lga: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  country: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  userId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    references: {
+      model: "users",
+      key: "id",
+    },
+    onDelete: "CASCADE",
   }
 }, {
   sequelize,
-  modelName: "user",
+  modelName: "address",
   timestamps: true,
-})
+});
 
-await User.sync({});
-export default User;
+await Address.sync({});
+export default Address;

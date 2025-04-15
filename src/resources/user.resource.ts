@@ -1,7 +1,6 @@
-import type { UserResponseDTO } from "../dto/user.dto";
-import type { IUser } from "../types/User.type";
+import type { User, UserResponseDTO } from "../types/user";
 
-export default function(model: IUser): UserResponseDTO {
+export default function(model: User): UserResponseDTO {
   return {
     id: model.id,
     firstname: model.firstname,
