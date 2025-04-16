@@ -26,6 +26,8 @@ app.get('/', (_req: Request, res: Response) => {
   res.status(200).send('Server working perfectly...');
 });
 
+// Just some changes
+
 /** Handles Error */
 app.use(errorHandler);
 
