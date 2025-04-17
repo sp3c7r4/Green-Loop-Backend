@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { type Request, type Response } from 'express';
 import Logger from '../src/utils/logger';
 import { address } from 'ip';
 import env from '../src/config/env';
@@ -11,8 +11,6 @@ import productRoutes from './../src/routes/product.routes';
 const app = express();
 app.use(express.json());
 
-/** Socket Server */
-
 /** Database Connection */
 connectSQL(); /* Connect to PostGreSQL */
 
@@ -22,7 +20,7 @@ app.use('/api/v1/user/', userRoutes);
 /* Product Routes */
 app.use('/api/v1/product/', productRoutes);
 
-app.get('/', (_req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
   res.status(200).send('Server working perfectly...');
 });
 

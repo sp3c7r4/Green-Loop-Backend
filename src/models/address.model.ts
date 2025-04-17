@@ -13,19 +13,31 @@ Address.init({
   },
   address: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value: string) {
+      this.setDataValue("address", value.toLowerCase());
+    },
   },
   state: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value: string) {
+      this.setDataValue("state", value.toLowerCase());
+    },
   },
   lga: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value: string) {
+      this.setDataValue("lga", value.toLowerCase());
+    },
   },
   country: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value: string) {
+      this.setDataValue("country", value.toLowerCase());
+    },
   },
   userId: {
     type: DataTypes.STRING,

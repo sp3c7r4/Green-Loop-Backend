@@ -13,7 +13,10 @@ Product.init({
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value: string) {
+      this.setDataValue("name", value.toLowerCase());
+    },
   },
   image_url: {
     type: DataTypes.STRING,
@@ -21,11 +24,14 @@ Product.init({
   },
   about: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
   },
   brand: {
     type: DataTypes.TEXT,
-    allowNull: true
+    allowNull: true,
+    set(value: string) {
+      this.setDataValue("brand", value.toLowerCase());
+    },
   },
   issue: {
     type: DataTypes.TEXT,
@@ -33,11 +39,17 @@ Product.init({
   },
   condition: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value: string) {
+      this.setDataValue("condition", value.toLowerCase());
+    },
   },
   address: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value: string) {
+      this.setDataValue("address", value.toLowerCase());
+    },
   },
   userId: {
     type: DataTypes.STRING,

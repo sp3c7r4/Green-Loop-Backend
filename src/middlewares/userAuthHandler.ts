@@ -5,10 +5,7 @@ import jwtExtractor from "../utils/jwtExtractor";
 import Response from "../utils/response";
 
 export function userAuthHandler(req: Request, res: Rez, next: NextFunction) {
-
   const token = jwtExtractor(req)
-
-  // Verify the token using your secret key
   const verifiedToken = JWT.verifyToken(token);
   if (
     verifiedToken === 'Invalid Token' ||

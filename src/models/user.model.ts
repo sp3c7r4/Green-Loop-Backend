@@ -14,10 +14,16 @@ User.init({
   firstname: {
     type: DataTypes.STRING,
     allowNull: false,
+    set(value: string) {
+      this.setDataValue("firstname", value.toLowerCase());
+    },
   },
   lastname: {
     type: DataTypes.STRING,
     allowNull: false,
+    set(value: string) {
+      this.setDataValue("lastname", value.toLowerCase());
+    },
   },
   email: {
     type: DataTypes.STRING,
@@ -25,7 +31,10 @@ User.init({
     allowNull: false,
     validate: {
       isEmail: true,
-    }
+    },
+    set(value: string) {
+      this.setDataValue("email", value.toLowerCase());
+    },
   },
   mobile: {
     type: DataTypes.STRING,
@@ -34,7 +43,10 @@ User.init({
   },
   type: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value: string) {
+      this.setDataValue("type", value.toLowerCase());
+    },
   },
   password: {
     type: DataTypes.STRING,

@@ -7,14 +7,15 @@ import type { CreateUserDTO, User } from "../types/user"
 import AddressRepository from "../repositories/address.repository"
 import userResource from "../resources/user.resource"
 import addressResource from "../resources/address.resource"
-import bcrypt from "bcryptjs"
 import JWT from "../utils/jwtClass"
 import type { Address } from "../types/address"
+import { password as bunPs } from "bun"
 
 const userRepositoryInstance = new UserRepository()
 const addressRepositoryInstance =  new AddressRepository()
 const registerFields = ['firstname','lastname','email','mobile','type', 'password', 'address', 'state', 'lga', 'country'];
-const registerData = ['firstname','lastname','email','mobile','type', 'password', ];
+const registerData = ['firstname','lastname','email','mobile','type', 'password' ];
+const updateData = ['firstname','lastname','email','mobile', 'password' ];
 const addressData = ['address', 'state', 'lga', 'country'];
 
 export const registerUser = async (data: CreateUserDTO) => {
@@ -50,7 +51,9 @@ export const loginUser = async (email: string, password: string) =>  {
   if (!emailCheck) {
     return BAD_REQUEST("Email doesn't exxist")
   }
-  const decryptPassword = await bcrypt.compare(password, emailCheck.password)
+  console.time("Checking")
+  const decryptPassword = await bunPs.verify(password, emailCheck.password)
+  console.timeEnd("Checking")
   if(!decryptPassword) {
     return BAD_REQUEST("Incorrect Password")
   }
@@ -64,4 +67,11 @@ export const loginUser = async (email: string, password: string) =>  {
     token
   }
   return new Response(HttpStatus.OK.code, HttpStatus.OK.status, "success", response)
+}
+
+export const updateUser = async (id: string, data: Partial<CreateUserDTO>) => {
+  const updateInfo = _.pick(data, updateData)
+  console.log(updateInfo)
+  const update = await userRepositoryInstance.updateModel(id, updateInfo)
+  return new Response(HttpStatus.OK.code, HttpStatus.OK.status, "success", update)
 }

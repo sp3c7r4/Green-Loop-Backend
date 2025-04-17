@@ -1,8 +1,8 @@
-import bcrypt from "bcryptjs";
 import CustomError from "../utils/error";
 import errorHelper from "../utils/errorHelper";
 import HttpStatus from "../utils/http";
 import logTracker from "../utils/logTracker";
+import { password } from "bun";
 export default class BaseRepositorySQL {
   private model: any;
 
@@ -12,7 +12,10 @@ export default class BaseRepositorySQL {
 
   async encryptPassword(data: object & { password: string }) {
       if (data.password) {
-        data.password = await bcrypt.hash(data.password, 10)
+        data.password = await password.hash(data.password, {
+          algorithm: "bcrypt",
+          cost: 10
+        })
         return data
       }
       return data
@@ -98,6 +101,7 @@ export default class BaseRepositorySQL {
     //Handle no data
     this.validateDataCheck(data);
     try {
+      console.log(id, data)
       const model = await this.readOneById(id);
       await model.update(data);
       return model;
