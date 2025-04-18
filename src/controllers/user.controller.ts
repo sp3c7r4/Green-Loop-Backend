@@ -20,8 +20,9 @@ const addressData = ['address', 'state', 'lga', 'country'];
 
 export const registerUser = async (data: CreateUserDTO) => {
   /** Checks if the fields are all complete  */
-  if (!_.every(registerFields, field => _.has(data, field) && !_.isUndefined(_.get(data, field)))) {
-    return new Response(HttpStatus.BAD_REQUEST.code, HttpStatus.BAD_REQUEST.status, "All fields are required", {});
+  const missingField = registerFields.find(field => !_.has(data, field) || _.isUndefined(_.get(data, field)));
+  if (missingField) {
+    return new Response(HttpStatus.BAD_REQUEST.code, HttpStatus.BAD_REQUEST.status, `Field '${missingField}' is required`, {});
   }
 
   if (await userEmailCheck(data.email)) {
@@ -55,7 +56,7 @@ export const loginUser = async (email: string, password: string) =>  {
   const decryptPassword = await bunPs.verify(password, emailCheck.password)
   console.timeEnd("Checking")
   if(!decryptPassword) {
-    return BAD_REQUEST("Incorrect Password")
+    return BAD_REQUEST("Incorrect Password");
   }
   const tokenData = {
     user: userResource(emailCheck),

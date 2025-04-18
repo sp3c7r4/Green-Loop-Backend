@@ -6,10 +6,16 @@ import { connectSQL } from '../src/config/database';
 import errorHandler from '../src/middlewares/errorMiddleWare';
 import userRoutes from './../src/routes/user.routes';
 import productRoutes from './../src/routes/product.routes';
+import cors from 'cors';
 
 // redis.connect()
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: '*',
+  }),
+);
 
 /** Database Connection */
 connectSQL(); /* Connect to PostGreSQL */

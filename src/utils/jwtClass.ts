@@ -14,7 +14,7 @@ class JWT {
         },
         process.env.SECRET,
         {
-          expiresIn: '60m',
+          expiresIn: '10s',
         }
       );
       return token;
