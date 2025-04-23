@@ -58,5 +58,4 @@ User.init({
   timestamps: true,
 })
 
-await User.sync({});
 export default User;

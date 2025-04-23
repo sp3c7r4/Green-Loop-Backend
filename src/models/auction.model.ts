@@ -35,9 +35,8 @@ Auction.init({
   }
 }, {
   sequelize,
-  modelName: "address",
+  modelName: "auction",
   timestamps: true,
 });
 
-await Auction.sync({});
 export default Auction;

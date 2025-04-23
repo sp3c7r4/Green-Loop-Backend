@@ -1,3 +1,5 @@
+import type { Address, AddressResponseDTO } from "./address";
+
 export interface User {
   id: string;
   firstname: string;
@@ -8,6 +10,7 @@ export interface User {
   password: string; 
   createdAt: Date; 
   updatedAt: Date;
+  address: Address;
 }
 export interface CreateUserDTO {
   firstname: string;
@@ -30,4 +33,5 @@ export interface UserResponseDTO {
   email: string;
   createdAt: Date; 
   updatedAt: Date; 
+  address: Partial<AddressResponseDTO>;
 }

@@ -7,6 +7,5 @@ export default function(model: Address): Partial<AddressResponseDTO> {
     state: model.state,
     country: model.country,
     lga: model.lga,
-    userId: model.userId,
   }
 }

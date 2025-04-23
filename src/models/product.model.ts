@@ -65,6 +65,5 @@ Product.init({
   modelName: "product",
   timestamps: true,
 });
-// Aint gat no choice than adding a comment
-await Product.sync({});
+
 export default Product;

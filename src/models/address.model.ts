@@ -42,17 +42,17 @@ Address.init({
   userId: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true, // Enforce one-to-one relationship
     references: {
-      model: "users",
-      key: "id",
+      model: 'users',
+      key: 'id',
     },
-    onDelete: "CASCADE",
-  }
+    onDelete: 'CASCADE',
+  },
 }, {
   sequelize,
   modelName: "address",
   timestamps: true,
 });
 
-await Address.sync({});
 export default Address;

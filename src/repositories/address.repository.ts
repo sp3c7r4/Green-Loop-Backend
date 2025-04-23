@@ -1,8 +1,11 @@
 import BaseRepositorySQL from "./BaseRepositorySQL"
 import { Address } from "./../models/relationships"
 
-export default class AddressRepository extends BaseRepositorySQL {
+class Repository extends BaseRepositorySQL {
   constructor() {
     super(Address)
   }
 }
+
+const AddressRepository = new Repository()
+export default AddressRepository;
