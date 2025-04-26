@@ -9,7 +9,7 @@ import BaseParamValidator from '../validators/BaseParamValidator';
 
 const router = express.Router()
 
-const productFields = ['name','image_url', 'about', 'brand', 'issue', 'address'];
+const productFields = ['name','image_url', 'about', 'brand', 'issue','condition','address'];
 
 router.post('/create',
   userAuthHandler,

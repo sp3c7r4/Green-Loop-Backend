@@ -16,6 +16,10 @@ app.use(
     origin: '*',
   }),
 );
+app.use((req, res, next) => {
+  Logger.server(`[${req.method}]: ${req.path}`);
+  next();
+});
 
 /** Database Connection */
 connectSQL(); /* Connect to PostGreSQL */

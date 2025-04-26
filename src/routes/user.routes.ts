@@ -11,7 +11,7 @@ const registerFields = ['firstname','lastname','email','mobile','type', 'passwor
 const updateFields = ['firstname','lastname','email','mobile', 'password' ];
 const loginFields = [ 'email','password' ];
 
-router.post('/register',
+router.post('/create',
   BaseBodyValidator(registerFields),
   tryCatch(async (req: Request, res: Response) => {
   const register = await registerUser(req.body)
@@ -28,8 +28,9 @@ router.post('/login',
 
 router.post('/update',
   userAuthHandler,
+  UpdateBodyValidator(updateFields),
   tryCatch(async (req: Request, res: Response) => {
-  const login = await updateUser(req.id, req.body)
+  const login = await updateUser(req.body.updateId, req.body)
   res.status(login.statusCode).send(login);
 }));
 export default router;

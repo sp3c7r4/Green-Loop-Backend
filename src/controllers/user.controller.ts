@@ -3,7 +3,7 @@ import HttpStatus from "../utils/http"
 import Response, { BAD_REQUEST } from "../utils/response"
 import _ from 'lodash'
 import { userEmailCheck, userMobileCheck } from "../utils/user.util"
-import type { CreateUserDTO, User } from "../types/user"
+import type { CreateUserDTO } from "../types/user"
 import AddressRepository from "../repositories/address.repository"
 import userResource from "../resources/user.resource"
 import JWT from "../utils/jwtClass"

@@ -15,6 +15,7 @@ export const sequelize = new Sequelize(
 export const connectSQL = async () => {
   try {
     // Authenticate the database connection
+    // await sequelize.sync({alter: true});
     await sequelize.authenticate();
     Logger.log("✅ Relational Database connected successfully!");
 
