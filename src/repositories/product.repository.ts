@@ -5,7 +5,7 @@ import errorHelper from "../utils/errorHelper";
 import CustomError from "../utils/error";
 import HttpStatus from "../utils/http";
 
-export default class ProductRepository extends BaseRepositorySQL {
+class Repository extends BaseRepositorySQL {
   constructor() {
     super(Product)
   }
@@ -31,3 +31,6 @@ export default class ProductRepository extends BaseRepositorySQL {
     }
   }
 }
+
+const ProductRepository = new Repository()
+export default ProductRepository;

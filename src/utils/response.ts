@@ -25,4 +25,17 @@ export function BAD_REQUEST(message: string) {
   )
 } 
 
+export function CREATED(message: string, data: any) {
+  return new Response(
+    HttpStatus.CREATED.code,
+    HttpStatus.CREATED.status,
+    message,
+    data
+  );
+}
+
+export function OK(message: string, data: any) {
+  return new Response(HttpStatus.OK.code, HttpStatus.OK.status, message, data);
+}
+
 export default Response;

@@ -1,5 +1,6 @@
 import type { User, UserResponseDTO } from "../types/user";
 import addressResource from "./address.resource";
+import auctionResource from "./auction.resource";
 import productResource from "./product.resource";
 
 export default function(model: User): UserResponseDTO {
@@ -13,7 +14,6 @@ export default function(model: User): UserResponseDTO {
     createdAt: model.createdAt,
     updatedAt: model.updatedAt,
     address: addressResource(model.address),
-    products: model.products.map((product) => productResource(product)),
-    auctions: model.auctions.map((auction) => auctionResource(auction)),
-  }
-}
+    products: model.products ? model.products.map((product) => productResource(product)) : [], // Handle undefined products
+    auctions: model.auctions ? model.auctions.map((auction) => auctionResource(auction)) : [], // Handle undefined auctions
+}}

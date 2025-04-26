@@ -6,7 +6,7 @@ import Response from "../utils/response";
 
 export function userAuthHandler(req: Request, res: Rez, next: NextFunction) {
   
-  const token = jwtExtractor(req)
+  const token = jwtExtractor(req, res)
   const verifiedToken = JWT.verifyToken(token);
   if (
     verifiedToken === 'Invalid Token' ||

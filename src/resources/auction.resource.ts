@@ -1,14 +1,10 @@
-import type { Product, ProductResponseDTO } from "../types/product";
+import type { Auction, AuctionResponseDTO } from "../types/auction";
 
-export default function(model: Product): Partial<ProductResponseDTO> {
+export default function(model: Auction): Partial<AuctionResponseDTO> {
   return {
     id: model.id,
-    name: model.name,
-    about: model.about,
-    image_url: model.image_url,
-    brand: model.brand,
-    issue: model.issue,
-    address: model.address,
+    price: model.price,
+    productId: model.productId,
     createdAt: model.createdAt,
     updatedAt: model.updatedAt,
   }

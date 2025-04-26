@@ -1,8 +1,11 @@
 import BaseRepositorySQL from "./BaseRepositorySQL"
 import { Auction } from "./../models/relationships"
 
-export default class AuctionRepository extends BaseRepositorySQL {
+class Repository extends BaseRepositorySQL {
   constructor() {
     super(Auction)
   }
 }
+
+const AuctionRepository = new Repository()
+export default AuctionRepository;

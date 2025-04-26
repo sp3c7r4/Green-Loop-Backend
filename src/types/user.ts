@@ -1,4 +1,6 @@
 import type { Address, AddressResponseDTO } from "./address";
+import type { Auction, AuctionResponseDTO } from "./auction";
+import type { Product, ProductResponseDTO } from "./product";
 
 export interface User {
   id: string;
@@ -6,6 +8,8 @@ export interface User {
   lastname: string;
   email: string;
   mobile: string;
+  products: Partial<Product>[],
+  auctions: Partial<Auction[]>
   type: string;
   password: string; 
   createdAt: Date; 
@@ -34,4 +38,6 @@ export interface UserResponseDTO {
   createdAt: Date; 
   updatedAt: Date; 
   address: Partial<AddressResponseDTO>;
+  products: Partial<ProductResponseDTO>[]; // Default to an empty array
+  auctions: AuctionResponseDTO[];
 }
