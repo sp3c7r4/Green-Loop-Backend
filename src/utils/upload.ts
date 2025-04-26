@@ -58,6 +58,13 @@ export async function uploadImage(req: Request, res: Response, next: NextFunctio
         const uploadResult = await cloudinary.uploader.upload(file, {
             resource_type: "auto",
             folder: "greensync",
+            transformation: [
+              {
+                width: 300, // Set the desired width
+                height: 300, // Set the desired height
+                crop: "limit", // Prevents upscaling if the original image is smaller
+              },
+            ],
         });
         console.log(uploadResult)
         req.body.image_url = uploadResult.secure_url

@@ -45,7 +45,7 @@ export const registerUser = async (data: CreateUserDTO) => {
 export const loginUser = async (email: string, password: string) =>  {
   const emailCheck = await userEmailCheck(email)
   if (!emailCheck) return BAD_REQUEST("Email doesn't exxist")
-  console.log(emailCheck.email)
+  console.log(emailCheck.products)
   console.time("Checking")
   const decryptPassword = await bunPs.verify(password, emailCheck.password)
   console.timeEnd("Checking")
@@ -65,7 +65,7 @@ export const loginUser = async (email: string, password: string) =>  {
 
 export const updateUser = async (id: string, data: Partial<CreateUserDTO>) => {
   const updateInfo = _.pick(data, updateData)
-  console.log(updateInfo)
+  
   const update = await UserRepository.updateModel(id, updateInfo)
   return new Response(HttpStatus.OK.code, HttpStatus.OK.status, "success", update)
 }

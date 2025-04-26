@@ -18,7 +18,7 @@ export default class ProductRepository extends BaseRepositorySQL {
         }
       });
     } catch (err) {
-      console.log(err)
+      
       logTracker.log(
         'error',
         JSON.stringify(errorHelper.returnErrorLog(err))

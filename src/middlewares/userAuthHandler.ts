@@ -5,7 +5,7 @@ import jwtExtractor from "../utils/jwtExtractor";
 import Response from "../utils/response";
 
 export function userAuthHandler(req: Request, res: Rez, next: NextFunction) {
-  console.log("LOG: ",req.body)
+  
   const token = jwtExtractor(req)
   const verifiedToken = JWT.verifyToken(token);
   if (

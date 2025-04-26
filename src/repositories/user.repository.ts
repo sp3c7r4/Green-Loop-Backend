@@ -37,6 +37,8 @@ class Repository extends BaseRepositorySQL {
         include: [
           { model: Address },
           { model: Auction },
+          { model: Product },
+          { model: Auction },
         ]
       });
       return findOne;

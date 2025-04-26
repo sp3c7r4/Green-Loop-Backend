@@ -15,7 +15,7 @@ router.post('/create',
   BaseBodyValidator(registerFields),
   tryCatch(async (req: Request, res: Response) => {
   const register = await registerUser(req.body)
-  console.log(register)
+  
   res.status(register.statusCode).send(register);
 }));
 

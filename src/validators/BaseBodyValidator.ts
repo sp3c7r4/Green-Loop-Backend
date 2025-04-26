@@ -18,7 +18,7 @@ export default function BaseBodyValidator(fields: string[]) {
         }),
     ),
     (req: Request, res: Responze, next: NextFunction) => {
-      console.log(req.body)
+      
       const errors = validationResult(req);
 
       if (errors.isEmpty()) {

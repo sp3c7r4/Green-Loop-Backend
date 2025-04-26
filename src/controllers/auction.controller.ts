@@ -11,18 +11,18 @@ const updateProductFields = ['name','image_url', 'about', 'brand', 'issue', 'add
 const productRepositoryInstance = new ProductRepository()
 
 export const createProduct = async (data: CreateProductDTO) => {
-  console.log("Datas: ",data)
+  
   if (!_.every(productFields, field => _.has(data, field) && !_.isUndefined(_.get(data, field)))) {
     return new Response(HttpStatus.BAD_REQUEST.code, HttpStatus.BAD_REQUEST.status, "All fields are required", {});
   }
 
   const createProduct = await productRepositoryInstance.create(data);
-  console.log(createProduct)
+  
   return new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, "success", createProduct)
 }
 
 export const updateProduct = async (data: CreateProductDTO) => {
-  console.log("Datas: ",data)
+  
   const cleanData = _.pick(data, updateProductFields);
   const filteredData = _.omitBy(cleanData, _.isUndefined);
 
@@ -39,7 +39,7 @@ export const readProductById = async (productId: string) => {
 
 export const readAllProductsById = async (userId: string) => {
   const readProduct = await productRepositoryInstance.readAllById(userId);
-  console.log(readProduct)
+  
   if(readProduct.length === 0) return BAD_REQUEST("Empty product list")
 
   return new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, "success", readProduct.map((product: any) => productResource(product)))

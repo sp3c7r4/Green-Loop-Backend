@@ -101,7 +101,7 @@ export default class BaseRepositorySQL {
     //Handle no data
     this.validateDataCheck(data);
     try {
-      console.log(id, data)
+      
       const model = await this.readOneById(id);
       await model.update(data);
       return model;

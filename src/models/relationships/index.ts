@@ -21,8 +21,5 @@ Product.hasMany(Auction, {
   foreignKey: { name: 'productId' },
   onDelete: 'CASCADE',
 });
-// Auction.belongsTo(User, { foreignKey: 'userId' });
-
-// Auction.belongsTo(Product, { foreignKey: 'productId' });
 
 export { User, Address , Product, Auction}
