@@ -45,7 +45,6 @@ export const registerUser = async (data: CreateUserDTO) => {
 export const loginUser = async (email: string, password: string) =>  {
   const emailCheck = await userEmailCheck(email)
   if (!emailCheck) return BAD_REQUEST("Email doesn't exxist")
-  console.log(emailCheck.products)
   console.time("Checking")
   const decryptPassword = await bunPs.verify(password, emailCheck.password)
   console.timeEnd("Checking")

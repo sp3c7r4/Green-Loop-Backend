@@ -24,7 +24,6 @@ router.post('/update/price',
     const register = await updateAuctionPrice(req.body)
     res.status(register.statusCode).send(register);
 }));
-
 // router.get('/read/all',
 //   userAuthHandler,
 //   tryCatch(async (req: Request, res: Response) => {

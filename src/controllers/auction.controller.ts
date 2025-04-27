@@ -3,7 +3,7 @@ import { BAD_REQUEST, CREATED } from "../utils/response";
 import AuctionRepository from "../repositories/auction.repository";
 import { productIdCheck } from "../utils/product.util";
 import type { CreateAuctionDTO } from "../types/auction";
-import { auctionIdCheck } from "../utils/auction.util";
+import { auctionIdCheck, auctionUserIdCheck } from "../utils/auction.util";
 
 const auctionFields = ['price','productId','userId']
 // const updateProductFields = ['name','image_url', 'about', 'brand', 'issue', 'address', 'condition']
@@ -14,7 +14,8 @@ export const createAuction = async (data: CreateAuctionDTO) => {
 
   const productCheck = await productIdCheck(data.productId);
   if(!productCheck) return BAD_REQUEST("Product Id doesn't exist")
-
+  const auctionCheck = await auctionUserIdCheck(data.userId)
+  if(auctionCheck.userId === data.userId) return BAD_REQUEST("Cannot carry out multiple auctions")
   const createProduct = await AuctionRepository.create(data);
   return CREATED("success", createProduct)
 }

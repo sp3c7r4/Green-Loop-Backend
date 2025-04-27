@@ -1,3 +1,5 @@
+import type { User } from "./user";
+
 export interface Auction {
   id: string;
   price: string;
@@ -5,6 +7,7 @@ export interface Auction {
   userId: string;
   createdAt: Date; 
   updatedAt: Date;
+  user?: User
 }
 
 export interface CreateAuctionDTO {
@@ -18,4 +21,5 @@ export interface AuctionResponseDTO {
   productId: string;
   createdAt: Date; 
   updatedAt: Date;
+  user?: User
 }

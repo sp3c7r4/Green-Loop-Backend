@@ -1,5 +1,5 @@
 import BaseRepositorySQL from "./BaseRepositorySQL"
-import { Product } from "./../models/relationships"
+import { Auction, Product, User } from "./../models/relationships"
 import logTracker from "../utils/logTracker";
 import errorHelper from "../utils/errorHelper";
 import CustomError from "../utils/error";
@@ -19,6 +19,38 @@ class Repository extends BaseRepositorySQL {
       });
     } catch (err) {
       
+      logTracker.log(
+        'error',
+        JSON.stringify(errorHelper.returnErrorLog(err))
+      );
+      throw new CustomError(
+        "Failed to fetch all records. Please try again later.",
+        HttpStatus.INTERNAL_SERVER_ERROR.code,
+        HttpStatus.INTERNAL_SERVER_ERROR.status
+      );
+    }
+  }
+
+  async readAllUsersByProductId(productId: string): Promise<Product | null> {
+    try {
+      const productWithUsers = await Product.findOne({
+        where: { id: productId },
+        include: [
+          {
+            model: Auction,
+            attributes: ['id', 'price', 'userId'],
+            include: [
+              {
+                model: User,
+                attributes: ['id', 'firstname', 'email']
+              }
+            ]
+          },
+        ],
+        order: [[Auction, 'price', 'DESC']],
+      });
+      return productWithUsers;
+    } catch (err) {
       logTracker.log(
         'error',
         JSON.stringify(errorHelper.returnErrorLog(err))

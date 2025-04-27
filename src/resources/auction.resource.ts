@@ -7,5 +7,6 @@ export default function(model: Auction): Partial<AuctionResponseDTO> {
     productId: model.productId,
     createdAt: model.createdAt,
     updatedAt: model.updatedAt,
+    user: model.user
   }
 }
