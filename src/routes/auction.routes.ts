@@ -3,8 +3,7 @@ import tryCatch from '../utils/tryCatch';
 import BaseBodyValidator from '../validators/BaseBodyValidator';
 import { userAuthHandler } from '../middlewares/userAuthHandler';
 import { createAuction } from '../controllers/auction.controller';
-// import UpdateBodyValidator from '../validators/UpdateBodyValidator';
-// import BaseParamValidator from '../validators/BaseParamValidator';
+import UpdateBodyValidator from '../validators/UpdateBodyValidator';
 
 const router = express.Router()
 
@@ -18,16 +17,13 @@ router.post('/create',
     res.status(create.statusCode).send(create);
 }));
 
-// router.post('/update',
-//   userAuthHandler,
-//   upload.single('image'),
-//   multerErrorHandler,
-//   uploadImage,
-//   UpdateBodyValidator(productFields),
-//   tryCatch(async (req: Request, res: Response) => {
-//     const register = await updateProduct({...req.body, userId: req.id})
-//     res.status(register.statusCode).send(register);
-// }));
+router.post('/update/price',
+  userAuthHandler,
+  UpdateBodyValidator(['price']),
+  tryCatch(async (req: Request, res: Response) => {
+    const register = await updateProduct({...req.body, userId: req.id})
+    res.status(register.statusCode).send(register);
+}));
 
 // router.get('/read/all',
 //   userAuthHandler,

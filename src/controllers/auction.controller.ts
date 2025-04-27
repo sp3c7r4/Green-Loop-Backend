@@ -18,14 +18,14 @@ export const createAuction = async (data: CreateAuctionDTO) => {
   return CREATED("success", createProduct)
 }
 
-// export const updateProduct = async (data: CreateProductDTO) => {
+export const updateProduct = async (data: CreateProductDTO) => {
   
-//   const cleanData = _.pick(data, updateProductFields);
-//   const filteredData = _.omitBy(cleanData, _.isUndefined);
+  const cleanData = _.pick(data, updateProductFields);
+  const filteredData = _.omitBy(cleanData, _.isUndefined);
 
-//   const updateProduct = await ProductRepository.updateModel(data.updateId, filteredData);
-//   return new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, "success", updateProduct)
-// }
+  const updateProduct = await ProductRepository.updateModel(data.updateId, filteredData);
+  return new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, "success", updateProduct)
+}
 
 // export const readProductById = async (productId: string) => {
 //   const readProduct = await ProductRepository.readOneById(productId);
