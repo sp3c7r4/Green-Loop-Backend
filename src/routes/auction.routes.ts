@@ -2,7 +2,7 @@ import express, { type Request, type Response } from 'express'
 import tryCatch from '../utils/tryCatch';
 import BaseBodyValidator from '../validators/BaseBodyValidator';
 import { userAuthHandler } from '../middlewares/userAuthHandler';
-import { createAuction } from '../controllers/auction.controller';
+import { createAuction, updateAuctionPrice } from '../controllers/auction.controller';
 import UpdateBodyValidator from '../validators/UpdateBodyValidator';
 
 const router = express.Router()
@@ -21,7 +21,7 @@ router.post('/update/price',
   userAuthHandler,
   UpdateBodyValidator(['price']),
   tryCatch(async (req: Request, res: Response) => {
-    const register = await updateProduct({...req.body, userId: req.id})
+    const register = await updateAuctionPrice(req.body)
     res.status(register.statusCode).send(register);
 }));
 

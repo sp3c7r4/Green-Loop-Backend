@@ -17,6 +17,7 @@ User.hasMany(Auction, {
   foreignKey: { name: 'userId' },
   onDelete: 'CASCADE',
 });
+
 Product.hasMany(Auction, {
   foreignKey: { name: 'productId' },
   onDelete: 'CASCADE',

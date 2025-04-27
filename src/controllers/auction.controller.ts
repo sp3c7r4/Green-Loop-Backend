@@ -3,9 +3,10 @@ import { BAD_REQUEST, CREATED } from "../utils/response";
 import AuctionRepository from "../repositories/auction.repository";
 import { productIdCheck } from "../utils/product.util";
 import type { CreateAuctionDTO } from "../types/auction";
+import { auctionIdCheck } from "../utils/auction.util";
 
 const auctionFields = ['price','productId','userId']
-const updateProductFields = ['name','image_url', 'about', 'brand', 'issue', 'address', 'condition']
+// const updateProductFields = ['name','image_url', 'about', 'brand', 'issue', 'address', 'condition']
 
 export const createAuction = async (data: CreateAuctionDTO) => {
   
@@ -18,13 +19,11 @@ export const createAuction = async (data: CreateAuctionDTO) => {
   return CREATED("success", createProduct)
 }
 
-export const updateProduct = async (data: CreateProductDTO) => {
-  
-  const cleanData = _.pick(data, updateProductFields);
-  const filteredData = _.omitBy(cleanData, _.isUndefined);
-
-  const updateProduct = await ProductRepository.updateModel(data.updateId, filteredData);
-  return new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, "success", updateProduct)
+export const updateAuctionPrice = async (data: Partial<CreateAuctionDTO>) => {
+  const productCheck = await auctionIdCheck(data.updateId);
+  if(!productCheck) return BAD_REQUEST("Auction doesn't exist")
+  const updateProduct = await AuctionRepository.updateModel(data.updateId, {price: data.price});
+  return CREATED("success", updateProduct)
 }
 
 // export const readProductById = async (productId: string) => {
