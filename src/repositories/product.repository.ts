@@ -49,14 +49,14 @@ class Repository extends BaseRepositorySQL {
         ],
         order: [[Auction, 'price', 'DESC']],
       });
-      return productWithUsers;
+      return productWithUsers
     } catch (err) {
       logTracker.log(
-        'error',
+        'errors',
         JSON.stringify(errorHelper.returnErrorLog(err))
       );
       throw new CustomError(
-        "Failed to fetch all records. Please try again later.",
+        "Failed to fetch all recordz. Please try again later.",
         HttpStatus.INTERNAL_SERVER_ERROR.code,
         HttpStatus.INTERNAL_SERVER_ERROR.status
       );
