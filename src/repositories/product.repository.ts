@@ -64,5 +64,5 @@ class Repository extends BaseRepositorySQL {
   }
 }
 
-const ProductRepository = new Repository()
+const ProductRepository = new Repository();
 export default ProductRepository;
